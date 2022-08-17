@@ -19,7 +19,8 @@ public class AlgorithmProblems {
     }
     //method to permute the string
     private static void permutations(char[] chars, int currentIndex) {
-        if (currentIndex == chars.length - 1) {
+        if (currentIndex == chars.length - 1)
+        {
             System.out.println(String.valueOf(chars));
         }
         for (int i = currentIndex; i < chars.length; i++) {
