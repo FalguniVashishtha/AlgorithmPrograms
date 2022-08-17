@@ -1,44 +1,53 @@
 package com.bridgelabz;
 
 import java.util.Scanner;
-public class BinarySearch <K extends Comparable<K>> {
-    public static void main(String[] args) {
-        Scanner string = new Scanner(System.in);
-        String sentence = "Search the word";
-        String[] arrayOfString = sentence.toLowerCase().split(" ");
+import java.util.Arrays;
+import java.util.Scanner;
+public class BinarySearch
+{
+    //method  binarySearch
+    public int binarySearch(String[] wordList, String searchName)
+    {
+        int start = 0, length = wordList.length - 1;
 
-        BinarySearch<String> binary = new BinarySearch<>();
+        while (start <= length)
+        {
+            int middle = start + (length - start) / 2;
+            int result = searchName.compareTo(wordList[middle]);
 
-        for (int i = 0; i < arrayOfString.length - 1; i++) {
-            for (int j = i + 1; j < arrayOfString.length; j++) {
-                if (arrayOfString[i].compareTo(arrayOfString[j]) > 0) {
-                    String temp = arrayOfString[i];
-                    arrayOfString[i] = arrayOfString[j];
-                    arrayOfString[j] = temp;
-                }
-            }
+            if (result == 0)
+                return middle;
+
+            if (result > 0)
+                start = middle + 1;
+            else
+                length = middle - 1;
         }
-        System.out.println("Enter word to search");
-        String word = string.next();
-        binary.binarySearch(arrayOfString, 0, arrayOfString.length, word);
+        return -1;
     }
 
-    public <K extends Comparable<K>> K binarySearch(K[] array, int low, int high, K data) {
+    public static void main(String[] args)
+    {
+        BinarySearch Obj = new BinarySearch();
 
-        int mid = (low + high) / 2;
+        Scanner scanner = new Scanner(System.in);
+        // create array list
+        String[] wordList = {"hiii", "Hello", "begin", "to"};
+        // array list is ascending order
+        Arrays.sort(wordList);
+        System.out.println("List of Words :");
+        System.out.println(Arrays.toString(wordList));
+        System.out.println("Enter the word you want to search");
+        String searchName = scanner.nextLine();
+        scanner.close();
+        int result = Obj.binarySearch(wordList, searchName);
 
-        if (data.equals(array[mid])) {
-            System.out.println(data + " word is found ");
-            return data;
-        }
-
-        if (mid == low) {
-            System.out.println(data + " word cant found  ");
-            return data;
-        } else if (data.compareTo(array[mid]) > 0)
-            binarySearch(array, mid, high, data);
+        if (result == -1) //word is found
+            System.out.println("word is found at " + "index " + result);
         else
-            binarySearch(array, low, mid, data);
-        return data;
+            System.out.println("word is not present in the list");
+
     }
+
+
 }
